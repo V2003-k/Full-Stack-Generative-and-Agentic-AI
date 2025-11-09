@@ -1,0 +1,87 @@
+from dotenv import load_dotenv
+from mem0 import Memory
+import os
+from openai import OpenAI
+import msvcrt
+import json
+
+load_dotenv()
+
+client = OpenAI()
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+config = {
+    "version": "v1.1",
+    "embedder": {
+        "provider": "openai",
+        "config": { "api_key": OPENAI_API_KEY, "model": "text-embedding-3-small" }
+    },
+    "llm": {
+        "provider": "openai",
+        "config": { "api_key": OPENAI_API_KEY, "model": "gpt-4.1" }
+    },
+    "graph_store":{
+        "provider": "neo4j",
+        "config": {
+            "url": "neo4j+s://cdd81041.databases.neo4j.io",
+            "username": "neo4j",
+            "password": "0Vs3n4yRSzGz3Me0HMnjHspJErRcxOSnQCRkHYmKw88"
+        }
+    },
+    "vector-store": {
+        "provider": "qdrant",
+        "config": {
+            "host": "localhost",
+            "port": 6333
+        }
+    }
+}
+
+embedder_cfg = config.setdefault("embedder", {}).setdefault("config", {})
+if "embedding_dims" not in embedder_cfg:
+    resp = client.embeddings.create(model=embedder_cfg["model"], input="test")
+    dims = len(resp.data[0].embedding)
+    embedder_cfg["embedding_dims"] = dims
+    print(f"Detected embedding dims = {dims} and set config['embedder']['config']['embedding_dims']")
+
+mem_client = Memory.from_config(config)
+
+while True:
+    user_query = input("> ")
+
+    search_memory = mem_client.search(query=user_query, user_id="vishwajeet")
+
+    memories = [
+        f"ID: {mem.get("id")}\nMemory: {mem.get("memory")}"
+        for mem in search_memory.get("results")
+    ]
+
+    print("Found Memory", memories)
+
+    SYSTEM_PROMPT = f""" 
+        Here is the context about the user:
+        {json.dumps(memories)}
+     """
+    
+    response = client.chat.completions.create(
+        model="gpt-4.1-mini",
+        messages=[
+            { "role": "system", "content": SYSTEM_PROMPT },
+            { "role": "user", "content": user_query }
+        ]
+    )
+    
+    ai_response = response.choices[0].message.content
+
+    print("AI:", ai_response)
+
+    mem_client.add(
+        user_id="vishwajeet",
+        messages=[
+            { "role": "user", "content": user_query },
+            { "role": "assistant", "content": ai_response }
+        ]
+    )
+
+    print("Memory has been saved...")

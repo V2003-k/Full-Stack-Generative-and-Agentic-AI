@@ -1,6 +1,6 @@
 # Full-Stack Generative and Agentic AI
 
-I built this repository to demonstrate a complete, production-ready full-stack system that combines generative AI models with agentic orchestration. This project is a hands-on end-to-end implementation: from model inference and prompt engineering to multi-agent coordination, APIs, frontend integration, and deployment automation. I completed the project and am sharing it here as a reference implementation and starting point for others.
+I built this repository to demonstrate a complete, full-stack system that combines generative AI models with agentic orchestration. This project is a hands-on end-to-end implementation: from model inference and prompt engineering to multi-agent coordination, APIs, frontend integration, and deployment automation. I completed the project and am sharing it here as a reference implementation and starting point for others.
 
 ## Highlights
 
@@ -76,10 +76,6 @@ pytest -q
 ## Contributing
 
 If you'd like to contribute, open an issue or a pull request. I welcome bug reports, feature requests, and improvements. When contributing, please follow the repository style and add tests for new functionality.
-
-## License
-
-This project is provided under the terms of the MIT License unless another license is specified in the repository.
 
 ## Contact
 

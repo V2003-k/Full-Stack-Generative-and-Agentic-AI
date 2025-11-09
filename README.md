@@ -82,5 +82,3 @@ If you'd like to contribute, open an issue or a pull request. I welcome bug repo
 If you have questions or want to collaborate, reach out to me (V2003-k) via my GitHub profile: https://github.com/V2003-k
 
 ---
-
-This README was written on behalf of V2003-k to reflect completion of the Full-Stack Generative and Agentic AI project. Please tell me if you want additional sections (architecture diagrams, API reference, examples) or custom wording and I'll update it.

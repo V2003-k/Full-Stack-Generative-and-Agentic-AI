@@ -1,6 +1,6 @@
 # Full-Stack Generative and Agentic AI
 
-I built this repository to demonstrate a complete, full-stack system that combines generative AI models with agentic orchestration. This project is a hands-on end-to-end implementation: from model inference and prompt engineering to multi-agent coordination, APIs, frontend integration, and deployment automation. I completed the project and am sharing it here as a reference implementation and starting point for others.
+I built this repository to demonstrate a complete generative AI models with agentic orchestration. This project is a hands-on end-to-end implementation: from model inference and prompt engineering to multi-agent coordination, APIs, frontend integration, and deployment automation. I completed the project and am sharing it here as a reference implementation and starting point for others.
 
 ## Highlights
 
@@ -12,9 +12,8 @@ I built this repository to demonstrate a complete, full-stack system that combin
 
 ## Where to start
 
-1. Read the docs in the `docs/` folder (if present) and the code in `src/` to understand the architecture.
-2. Create and activate a Python virtual environment.
-3. Install dependencies from `requirements.txt`.
+1. Create and activate a Python virtual environment.
+2. Install dependencies from `requirements.txt`.
 
 ## Quickstart
 
@@ -27,55 +26,6 @@ python -m venv .venv
 source .venv/bin/activate  # on Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
-
-Start the API (example):
-
-```bash
-python -m src.app      # or the entrypoint defined in the repository
-```
-
-Run example agents or pipelines (adjust names to match implemented modules):
-
-```bash
-python -m src.agents.demo_agent
-```
-
-## Architecture overview
-
-- src/: core Python implementation — models, agents, tools, pipelines, and API
-- infra/: deployment, Dockerfiles, and automation scripts
-- tests/: unit and integration tests
-- notebooks/: experimental notebooks and demos
-
-Agents coordinate tasks using planners, executors, and tool interfaces. Generative models are wrapped so they can be swapped (local models, APIs, or custom adapters).
-
-## Configuration & Secrets
-
-- Use environment variables or a .env file for API keys and secrets (do NOT commit secrets).
-- Example configuration is provided in `config.example.yaml` (or similar). Copy to `config.yaml` and update.
-
-## Deployment
-
-This repo is prepared for Docker-based deployment. Example commands:
-
-```bash
-docker build -t fs-agentic-ai .
-docker run --env-file .env -p 8000:8000 fs-agentic-ai
-```
-
-CI/CD workflows (if present) will be in `.github/workflows/`.
-
-## Tests
-
-Run tests with pytest:
-
-```bash
-pytest -q
-```
-
-## Contributing
-
-If you'd like to contribute, open an issue or a pull request. I welcome bug reports, feature requests, and improvements. When contributing, please follow the repository style and add tests for new functionality.
 
 ## Contact
 
